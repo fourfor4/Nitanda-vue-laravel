@@ -1,0 +1,665 @@
+<!DOCTYPE html>
+<html class="loading" lang="en" data-textdirection="ltr">
+<!-- BEGIN: Head-->
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=0,minimal-ui">
+    <meta name="description" content="Vuexy admin is super flexible, powerful, clean &amp; modern responsive bootstrap 4 admin template with unlimited possibilities.">
+    <meta name="keywords" content="admin template, Vuexy admin template, dashboard template, flat admin template, responsive admin template, web app">
+    <meta name="author" content="PIXINVENT">
+    <title>Webベースのチャット</title>
+    <link rel="apple-touch-icon" href="../app-assets/images/ico/apple-icon-120.png">
+    <link rel="shortcut icon" type="image/x-icon" href="../app-assets/images/ico/favicon.ico">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,300;0,400;0,500;0,600;1,400;1,500;1,600" rel="stylesheet">
+
+    <!-- BEGIN: Vendor CSS-->
+    <link rel="stylesheet" type="text/css" href="../app-assets/vendors/css/vendors.min.css">
+    <!-- END: Vendor CSS-->
+
+    <!-- BEGIN: Theme CSS-->
+    <link rel="stylesheet" type="text/css" href="../app-assets/css/bootstrap.css">
+    <link rel="stylesheet" type="text/css" href="../app-assets/css/bootstrap-extended.css">
+    <link rel="stylesheet" type="text/css" href="../app-assets/css/colors.css">
+    <link rel="stylesheet" type="text/css" href="../app-assets/css/components.css">
+    <link rel="stylesheet" type="text/css" href="../app-assets/css/themes/dark-layout.css">
+    <link rel="stylesheet" type="text/css" href="../app-assets/css/themes/bordered-layout.css">
+    <link rel="stylesheet" type="text/css" href="../app-assets/css/themes/semi-dark-layout.css">
+
+    <!-- BEGIN: Page CSS-->
+    <link rel="stylesheet" type="text/css" href="../app-assets/css/core/menu/menu-types/vertical-menu.css">
+    <link rel="stylesheet" type="text/css" href="../app-assets/css/pages/app-chat.css">
+    <link rel="stylesheet" type="text/css" href="../app-assets/css/pages/app-chat-list.css">
+    <!-- END: Page CSS-->
+
+    <!-- BEGIN: Custom CSS-->
+    <link rel="stylesheet" type="text/css" href="../assets/css/style.css">
+    <!-- END: Custom CSS-->
+
+</head>
+<!-- END: Head-->
+
+<!-- BEGIN: Body-->
+
+<body class="vertical-layout vertical-menu-modern content-left-sidebar navbar-floating footer-static  " data-open="click" data-menu="vertical-menu-modern" data-col="content-left-sidebar">
+
+    <!-- BEGIN: Content-->
+    <div class="app-content content chat-application workspace">
+        <div class="content-area-wrapper container-xxl p-0 workspace-content">
+            <div class="sidebar-left">
+                <div class="nav-vertical">
+                    <ul class="nav nav-tabs nav-left flex-column" role="tablist" style="margin-right: 0 !important;">
+                        <li class="nav-item workspace-item">
+                            <a class="nav-link active" id="baseVerticalLeft-tab1" data-bs-toggle="tab" aria-controls="tabVerticalLeft1" href="#tabVerticalLeft1" role="tab" aria-selected="true">LR</a>
+                        </li>
+                        <li class="nav-item workspace-item">
+                            <a class="nav-link" id="baseVerticalLeft-tab2" data-bs-toggle="tab" aria-controls="tabVerticalLeft2" href="#tabVerticalLeft2" role="tab" aria-selected="false">CR</a>
+                        </li>
+                        <li class="nav-item workspace-item">
+                            <a class="nav-link" id="baseVerticalLeft-tab3" data-bs-toggle="tab" aria-controls="tabVerticalLeft3" href="#tabVerticalLeft3" role="tab" aria-selected="false">BC
+                            </a>
+                        </li>
+                        <li class="nav-item workspace-item">
+                            <button type="button" class="btn btn-icon btn-icon rounded-circle btn-outline-primary waves-effect" disabled="">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-plus"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+                            </button>
+                        </li>
+                    </ul>
+                    <div class="tab-content" style="margin-left: 55px;">
+                        <div class="tab-pane active" id="tabVerticalLeft1" role="tabpanel" aria-labelledby="baseVerticalLeft-tab1">
+                            <div class="sidebar">
+                                <!-- Chat Sidebar area -->
+                                <div class="sidebar-content">
+                                    <span class="sidebar-close-icon">
+                                        <i data-feather="x"></i>
+                                    </span>
+                                    
+                                    <!-- Sidebar header start -->
+                                    <div class="chat-fixed-search">
+                                        <div class="d-flex align-items-center w-100">
+                                            <div class="sidebar-profile-toggle">
+                                                <div class="avatar avatar-border">
+                                                    <img src="../app-assets/images/portrait/small/avatar-s-11.jpg" alt="user_avatar" height="42" width="42" />
+                                                    <span class="avatar-status-online"></span>
+                                                </div>
+                                            </div>
+                                            <div class="input-group input-group-merge ms-1 w-100">
+                                                <span class="input-group-text round"><i data-feather="search" class="text-muted"></i></span>
+                                                <input type="text" class="form-control round" id="chat-search" placeholder="Search or start a new chat" aria-label="Search..." aria-describedby="chat-search" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- Sidebar header end -->
+            
+                                    <!-- Sidebar Users start -->
+                                    <div id="users-list" class="chat-user-list-wrapper list-group">
+                                        <h4 class="chat-list-title">
+                                            Departments Name
+                                            <span style="float: right; vertical-align: middle;">
+                                                
+                                            </span>
+                                        </h4>
+                                        <ul class="chat-users">
+                                            <li class="active">
+                                                <div class="chat-info flex-grow-1">
+                                                    <p class="card-text text-truncate">
+                                                       <span># </span> HTML
+                                                    </p>
+                                                </div>
+                                            </li>
+                                            <li>
+                                                <div class="chat-info flex-grow-1">
+                                                    <p class="card-text text-truncate">
+                                                       <span># </span> CSS
+                                                    </p>
+                                                </div>
+                                            </li>
+                                            <li>
+                                                <div class="chat-info flex-grow-1">
+                                                    <p class="card-text text-truncate">
+                                                       <span># </span> JAVASCRIPT
+                                                    </p>
+                                                </div>
+                                            </li>
+                                            <li>
+                                                <button type="button" class="btn btn-icon btn-outline-primary waves-effect" disabled="">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-plus"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+                                                </button>
+                                            </li>
+                                            <li class="no-results">
+                                                <h6 class="mb-0">No Chats Found</h6>
+                                            </li>
+                                        </ul>
+                                        <h4 class="chat-list-title">Departments members</h4>
+                                        <ul class="chat-users-list contact-list media-list" style="height: 34vh !important;">
+                                            <li>
+                                                <span class="avatar"><img src="../app-assets/images/portrait/small/avatar-s-7.jpg" height="42" width="42" alt="Generic placeholder image" />
+                                                </span>
+                                                <div class="chat-info">
+                                                    <h5 class="mb-0">Jenny Perich</h5>
+                                                    <p class="card-text text-truncate">
+                                                        Tart dragée carrot cake chocolate bar. Chocolate cake jelly beans caramels tootsie roll candy canes.
+                                                    </p>
+                                                </div>
+                                            </li>
+                                            <li>
+                                                <span class="avatar"><img src="../app-assets/images/portrait/small/avatar-s-5.jpg" height="42" width="42" alt="Generic placeholder image" />
+                                                </span>
+                                                <div class="chat-info">
+                                                    <h5 class="mb-0">Sarah Montgomery</h5>
+                                                    <p class="card-text text-truncate">
+                                                        Tootsie roll sesame snaps biscuit icing jelly-o biscuit chupa chups powder.
+                                                    </p>
+                                                </div>
+                                            </li>
+                                            <li>
+                                                <span class="avatar"><img src="../app-assets/images/portrait/small/avatar-s-9.jpg" height="42" width="42" alt="Generic placeholder image" />
+                                                </span>
+                                                <div class="chat-info">
+                                                    <h5 class="mb-0">Heather Howell</h5>
+                                                    <p class="card-text text-truncate">
+                                                        Tart cookie dragée sesame snaps halvah. Fruitcake sugar plum gummies cheesecake toffee.
+                                                    </p>
+                                                </div>
+                                            </li>
+                                            <li>
+                                                <span class="avatar"><img src="../app-assets/images/portrait/small/avatar-s-7.jpg" height="42" width="42" alt="Generic placeholder image" />
+                                                </span>
+                                                <div class="chat-info">
+                                                    <h5 class="mb-0">Kelly Reyes</h5>
+                                                    <p class="card-text text-truncate">
+                                                        Wafer toffee tart jelly cake croissant chocolate bar cupcake donut. Fruitcake gingerbread tiramisu sweet
+                                                        jelly-o.
+                                                    </p>
+                                                </div>
+                                            </li>
+                                            <li>
+                                                <span class="avatar"><img src="../app-assets/images/portrait/small/avatar-s-15.jpg" height="42" width="42" alt="Generic placeholder image" />
+                                                </span>
+                                                <div class="chat-info">
+                                                    <h5 class="mb-0">Kristopher Candy</h5>
+                                                    <p class="card-text text-truncate">
+                                                        Marzipan bonbon chocolate bar biscuit lemon drops muffin jelly-o sweet jujubes.
+                                                    </p>
+                                                </div>
+                                            </li>
+                                            <li>
+                                                <span class="avatar"><img src="../app-assets/images/portrait/small/avatar-s-14.jpg" height="42" width="42" alt="Generic placeholder image" />
+                                                </span>
+                                                <div class="chat-info">
+                                                    <h5 class="mb-0">Vincent Nelson</h5>
+                                                    <p class="card-text text-truncate">
+                                                        Toffee gummi bears sugar plum gummi bears chocolate bar donut. Pudding cookie lemon drops icing
+                                                    </p>
+                                                </div>
+                                            </li>
+                                            <li>
+                                                <span class="avatar"><img src="../app-assets/images/portrait/small/avatar-s-17.jpg" height="42" width="42" alt="Generic placeholder image" />
+                                                </span>
+                                                <div class="chat-info">
+                                                    <h5 class="mb-0">Jimmy Parker</h5>
+                                                    <p class="card-text text-truncate">
+                                                        Powder halvah jelly beans topping caramels muffin dragée lollipop oat cake.
+                                                    </p>
+                                                </div>
+                                            </li>
+                                            <li>
+                                                <span class="avatar"><img src="../app-assets/images/portrait/small/avatar-s-3.jpg" height="42" width="42" alt="Generic placeholder image" />
+                                                </span>
+                                                <div class="chat-info">
+                                                    <h5 class="mb-0">Elizabeth Elliott</h5>
+                                                    <p class="card-text text-truncate">
+                                                        Candy canes ice cream jelly beans carrot cake chocolate bar pastry candy jelly-o.
+                                                    </p>
+                                                </div>
+                                            </li>
+                                            <li>
+                                                <span class="avatar"><img src="../app-assets/images/portrait/small/avatar-s-13.jpg" height="42" width="42" alt="Generic placeholder image" />
+                                                </span>
+                                                <div class="chat-info">
+                                                    <h5 class="mb-0">Nelson D'souza</h5>
+                                                    <p class="card-text text-truncate">
+                                                        Macaroon candy canes apple pie soufflé lemon drops chocolate cake chocolate sweet roll.
+                                                    </p>
+                                                </div>
+                                            </li>
+                                            <li class="no-results">
+                                                <h6 class="mb-0">No Contacts Found</h6>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    <!-- Sidebar Users end -->
+                                </div>
+                                <!--/ Chat Sidebar area -->
+                            </div>
+                        </div>
+                        <div class="tab-pane" id="tabVerticalLeft2" role="tabpanel" aria-labelledby="baseVerticalLeft-tab2">
+                            <div class="sidebar">
+                                <!-- Chat Sidebar area -->
+                                <div class="sidebar-content">
+                                    <span class="sidebar-close-icon">
+                                        <i data-feather="x"></i>
+                                    </span>
+                                    
+                                    <!-- Sidebar header start -->
+                                    <div class="chat-fixed-search">
+                                        <div class="d-flex align-items-center w-100">
+                                            <div class="sidebar-profile-toggle">
+                                                <div class="avatar avatar-border">
+                                                    <img src="../app-assets/images/portrait/small/avatar-s-11.jpg" alt="user_avatar" height="42" width="42" />
+                                                    <span class="avatar-status-online"></span>
+                                                </div>
+                                            </div>
+                                            <div class="input-group input-group-merge ms-1 w-100">
+                                                <span class="input-group-text round"><i data-feather="search" class="text-muted"></i></span>
+                                                <input type="text" class="form-control round" id="chat-search" placeholder="Search or start a new chat" aria-label="Search..." aria-describedby="chat-search" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- Sidebar header end -->
+            
+                                    <!-- Sidebar Users start -->
+                                    <div id="users-list" class="chat-user-list-wrapper list-group">
+                                        <h4 class="chat-list-title">
+                                            Departments Name
+                                            <span style="float: right; vertical-align: middle;">
+                                                
+                                            </span>
+                                        </h4>
+                                        <ul class="chat-users">
+                                            <li class="active">
+                                                <div class="chat-info flex-grow-1">
+                                                    <p class="card-text text-truncate">
+                                                       <span># </span> HTML
+                                                    </p>
+                                                </div>
+                                            </li>
+                                            <li>
+                                                <div class="chat-info flex-grow-1">
+                                                    <p class="card-text text-truncate">
+                                                       <span># </span> CSS
+                                                    </p>
+                                                </div>
+                                            </li>
+                                            <li>
+                                                <div class="chat-info flex-grow-1">
+                                                    <p class="card-text text-truncate">
+                                                       <span># </span> JAVASCRIPT
+                                                    </p>
+                                                </div>
+                                            </li>
+                                            <li>
+                                                <button type="button" class="btn btn-icon btn-outline-primary waves-effect" disabled="">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-plus"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+                                                </button>
+                                            </li>
+                                            <li class="no-results">
+                                                <h6 class="mb-0">No Chats Found</h6>
+                                            </li>
+                                        </ul>
+                                        <h4 class="chat-list-title">Departments members</h4>
+                                        <ul class="chat-users-list contact-list media-list" style="height: 34vh !important;">
+                                            <li>
+                                                <span class="avatar"><img src="../app-assets/images/portrait/small/avatar-s-7.jpg" height="42" width="42" alt="Generic placeholder image" />
+                                                </span>
+                                                <div class="chat-info">
+                                                    <h5 class="mb-0">Jenny Perich</h5>
+                                                    <p class="card-text text-truncate">
+                                                        Tart dragée carrot cake chocolate bar. Chocolate cake jelly beans caramels tootsie roll candy canes.
+                                                    </p>
+                                                </div>
+                                            </li>
+                                            <li>
+                                                <span class="avatar"><img src="../app-assets/images/portrait/small/avatar-s-5.jpg" height="42" width="42" alt="Generic placeholder image" />
+                                                </span>
+                                                <div class="chat-info">
+                                                    <h5 class="mb-0">Sarah Montgomery</h5>
+                                                    <p class="card-text text-truncate">
+                                                        Tootsie roll sesame snaps biscuit icing jelly-o biscuit chupa chups powder.
+                                                    </p>
+                                                </div>
+                                            </li>
+                                            <li>
+                                                <span class="avatar"><img src="../app-assets/images/portrait/small/avatar-s-9.jpg" height="42" width="42" alt="Generic placeholder image" />
+                                                </span>
+                                                <div class="chat-info">
+                                                    <h5 class="mb-0">Heather Howell</h5>
+                                                    <p class="card-text text-truncate">
+                                                        Tart cookie dragée sesame snaps halvah. Fruitcake sugar plum gummies cheesecake toffee.
+                                                    </p>
+                                                </div>
+                                            </li>
+                                            <li class="no-results">
+                                                <h6 class="mb-0">No Contacts Found</h6>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    <!-- Sidebar Users end -->
+                                </div>
+                                <!--/ Chat Sidebar area -->
+                            </div>
+                        </div>
+                        <div class="tab-pane" id="tabVerticalLeft3" role="tabpanel" aria-labelledby="baseVerticalLeft-tab3">
+                             <div class="sidebar">
+                                <!-- Chat Sidebar area -->
+                                <div class="sidebar-content">
+                                    <span class="sidebar-close-icon">
+                                        <i data-feather="x"></i>
+                                    </span>
+                                    
+                                    <!-- Sidebar header start -->
+                                    <div class="chat-fixed-search">
+                                        <div class="d-flex align-items-center w-100">
+                                            <div class="sidebar-profile-toggle">
+                                                <div class="avatar avatar-border">
+                                                    <img src="../app-assets/images/portrait/small/avatar-s-11.jpg" alt="user_avatar" height="42" width="42" />
+                                                    <span class="avatar-status-online"></span>
+                                                </div>
+                                            </div>
+                                            <div class="input-group input-group-merge ms-1 w-100">
+                                                <span class="input-group-text round"><i data-feather="search" class="text-muted"></i></span>
+                                                <input type="text" class="form-control round" id="chat-search" placeholder="Search or start a new chat" aria-label="Search..." aria-describedby="chat-search" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- Sidebar header end -->
+            
+                                    <!-- Sidebar Users start -->
+                                    <div id="users-list" class="chat-user-list-wrapper list-group">
+                                        <h4 class="chat-list-title">
+                                            Departments Name
+                                            <span style="float: right; vertical-align: middle;">
+                                                
+                                            </span>
+                                        </h4>
+                                        <ul class="chat-users">
+                                            <li class="active">
+                                                <div class="chat-info flex-grow-1">
+                                                    <p class="card-text text-truncate">
+                                                       <span># </span> HTML
+                                                    </p>
+                                                </div>
+                                            </li>
+                                            <li>
+                                                <div class="chat-info flex-grow-1">
+                                                    <p class="card-text text-truncate">
+                                                       <span># </span> CSS
+                                                    </p>
+                                                </div>
+                                            </li>
+                                            <li>
+                                                <div class="chat-info flex-grow-1">
+                                                    <p class="card-text text-truncate">
+                                                       <span># </span> JAVASCRIPT
+                                                    </p>
+                                                </div>
+                                            </li>
+                                            <li>
+                                                <button type="button" class="btn btn-icon btn-outline-primary waves-effect" disabled="">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-plus"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+                                                </button>
+                                            </li>
+                                            <li class="no-results">
+                                                <h6 class="mb-0">No Chats Found</h6>
+                                            </li>
+                                        </ul>
+                                        <h4 class="chat-list-title">Departments members</h4>
+                                        <ul class="chat-users-list contact-list media-list" style="height: 34vh !important;">
+                                            <li>
+                                                <span class="avatar"><img src="../app-assets/images/portrait/small/avatar-s-7.jpg" height="42" width="42" alt="Generic placeholder image" />
+                                                </span>
+                                                <div class="chat-info">
+                                                    <h5 class="mb-0">Jenny Perich</h5>
+                                                    <p class="card-text text-truncate">
+                                                        Tart dragée carrot cake chocolate bar. Chocolate cake jelly beans caramels tootsie roll candy canes.
+                                                    </p>
+                                                </div>
+                                            </li>
+                                            <li>
+                                                <span class="avatar"><img src="../app-assets/images/portrait/small/avatar-s-5.jpg" height="42" width="42" alt="Generic placeholder image" />
+                                                </span>
+                                                <div class="chat-info">
+                                                    <h5 class="mb-0">Sarah Montgomery</h5>
+                                                    <p class="card-text text-truncate">
+                                                        Tootsie roll sesame snaps biscuit icing jelly-o biscuit chupa chups powder.
+                                                    </p>
+                                                </div>
+                                            </li>
+                                            <li>
+                                                <span class="avatar"><img src="../app-assets/images/portrait/small/avatar-s-9.jpg" height="42" width="42" alt="Generic placeholder image" />
+                                                </span>
+                                                <div class="chat-info">
+                                                    <h5 class="mb-0">Heather Howell</h5>
+                                                    <p class="card-text text-truncate">
+                                                        Tart cookie dragée sesame snaps halvah. Fruitcake sugar plum gummies cheesecake toffee.
+                                                    </p>
+                                                </div>
+                                            </li>
+                                            <li class="no-results">
+                                                <h6 class="mb-0">No Contacts Found</h6>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    <!-- Sidebar Users end -->
+                                </div>
+                                <!--/ Chat Sidebar area -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+            </div>
+            <div class="content-right">
+                <div class="content-wrapper container-xxl p-0">
+                    <div class="content-header row">
+                    </div>
+                    <div class="content-body">
+                        <div class="body-content-overlay"></div>
+                        <!-- Main chat area -->
+                        <section class="chat-app-window">
+                           <!-- Active Chat -->
+                            <div class="active-chat">
+                                <!-- Chat Header -->
+                                <div class="chat-navbar">
+                                    <header class="chat-header">
+                                        <div class="d-flex align-items-center">
+                                            <h6 class="mb-0"># HTML</h6>
+                                        </div>
+                                        <div class="d-flex align-items-center">
+                                            <div class="avatar-group">
+                                                <div data-bs-toggle="tooltip" data-popup="tooltip-custom" data-bs-placement="top" title="" class="avatar pull-up" data-bs-original-title="Vinnie Mostowy">
+                                                    <img src="../app-assets/images/portrait/small/avatar-s-5.jpg" alt="Avatar" height="32" width="32">
+                                                </div>
+                                                <div data-bs-toggle="tooltip" data-popup="tooltip-custom" data-bs-placement="top" title="" class="avatar pull-up" data-bs-original-title="Julee Rossignol">
+                                                    <img src="../app-assets/images/portrait/small/avatar-s-10.jpg" alt="Avatar" height="32" width="32">
+                                                </div>
+                                                <div data-bs-toggle="tooltip" data-popup="tooltip-custom" data-bs-placement="top" title="" class="avatar pull-up" data-bs-original-title="Julee Rossignol">
+                                                    <img src="../app-assets/images/portrait/small/avatar-s-10.jpg" alt="Avatar" height="32" width="32">
+                                                </div>
+                                                <div data-bs-toggle="tooltip" data-popup="tooltip-custom" data-bs-placement="top" title="" class="avatar pull-up" data-bs-original-title="Darcey Nooner">
+                                                    <img src="../app-assets/images/portrait/small/avatar-s-8.jpg" alt="Avatar" height="32" width="32"><span class="badge rounded-pill bg-primary badge-up cart-item-count">3</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </header>
+                                </div>
+                                <!--/ Chat Header -->
+
+                                <!-- User Chat messages -->
+                                <div class="user-chats">
+                                    <div class="chats">
+                                        <div class="chat">
+                                            <div class="chat-avatar">
+                                                <span class="avatar box-shadow-1 cursor-pointer">
+                                                    <img src="../app-assets/images/portrait/small/avatar-s-11.jpg" alt="avatar" height="36" width="36" />
+                                                </span>
+                                            </div>
+                                            <div class="chat-body">
+                                                <div class="chat-content">
+                                                    <p>How can we help? We're here for you! 😄</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="chat chat-left">
+                                            <div class="chat-avatar">
+                                                <span class="avatar box-shadow-1 cursor-pointer">
+                                                    <img src="../app-assets/images/portrait/small/avatar-s-7.jpg" alt="avatar" height="36" width="36" />
+                                                </span>
+                                            </div>
+                                            <div class="chat-body">
+                                                <div class="chat-content">
+                                                    <p>Hey John, I am looking for the best admin template.</p>
+                                                    <p>Could you please help me to find it out? 🤔</p>
+                                                </div>
+                                                <div class="chat-content">
+                                                    <p>It should be Bootstrap 4 compatible.</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="divider">
+                                            <div class="divider-text">Yesterday</div>
+                                        </div>
+                                        <div class="chat">
+                                            <div class="chat-avatar">
+                                                <span class="avatar box-shadow-1 cursor-pointer">
+                                                    <img src="../app-assets/images/portrait/small/avatar-s-11.jpg" alt="avatar" height="36" width="36" />
+                                                </span>
+                                            </div>
+                                            <div class="chat-body">
+                                                <div class="chat-content">
+                                                    <p>Absolutely!</p>
+                                                </div>
+                                                <div class="chat-content">
+                                                    <p>Vuexy admin is the responsive bootstrap 4 admin template.</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="chat chat-left">
+                                            <div class="chat-avatar">
+                                                <span class="avatar box-shadow-1 cursor-pointer">
+                                                    <img src="../app-assets/images/portrait/small/avatar-s-7.jpg" alt="avatar" height="36" width="36" />
+                                                </span>
+                                            </div>
+                                            <div class="chat-body">
+                                                <div class="chat-content">
+                                                    <p>Looks clean and fresh UI. 😃</p>
+                                                </div>
+                                                <div class="chat-content">
+                                                    <p>It's perfect for my next project.</p>
+                                                </div>
+                                                <div class="chat-content">
+                                                    <p>How can I purchase it?</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="chat">
+                                            <div class="chat-avatar">
+                                                <span class="avatar box-shadow-1 cursor-pointer">
+                                                    <img src="../app-assets/images/portrait/small/avatar-s-11.jpg" alt="avatar" height="36" width="36" />
+                                                </span>
+                                            </div>
+                                            <div class="chat-body">
+                                                <div class="chat-content">
+                                                    <p>Thanks, from ThemeForest.</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="chat chat-left">
+                                            <div class="chat-avatar">
+                                                <span class="avatar box-shadow-1 cursor-pointer">
+                                                    <img src="../app-assets/images/portrait/small/avatar-s-7.jpg" alt="avatar" height="36" width="36" />
+                                                </span>
+                                            </div>
+                                            <div class="chat-body">
+                                                <div class="chat-content">
+                                                    <p>I will purchase it for sure. 👍</p>
+                                                </div>
+                                                <div class="chat-content">
+                                                    <p>Thanks.</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="chat">
+                                            <div class="chat-avatar">
+                                                <span class="avatar box-shadow-1 cursor-pointer">
+                                                    <img src="../app-assets/images/portrait/small/avatar-s-11.jpg" alt="avatar" height="36" width="36" />
+                                                </span>
+                                            </div>
+                                            <div class="chat-body">
+                                                <div class="chat-content">
+                                                    <p>Great, Feel free to get in touch on</p>
+                                                </div>
+                                                <div class="chat-content">
+                                                    <p>https://pixinvent.ticksy.com/</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- User Chat messages -->
+
+                                <!-- Submit Chat form -->
+                                <form class="chat-app-form" action="javascript:void(0);" onsubmit="enterChat();">
+                                    <div class="input-group input-group-merge me-1 form-send-message">
+                                        <input type="text" class="form-control message" placeholder="Type your message or use speech to text" />
+                                        <span class="input-group-text">
+                                            <label for="attach-doc" class="attachment-icon form-label mb-0">
+                                                <i data-feather="image" class="cursor-pointer text-secondary"></i>
+                                                <input type="file" id="attach-doc" hidden /> </label></span>
+                                    </div>
+                                    <button type="button" class="btn btn-primary send" onclick="enterChat();">
+                                        <i data-feather="send" class="d-lg-none"></i>
+                                        <span class="d-none d-lg-block">Send</span>
+                                    </button>
+                                </form>
+                                <!--/ Submit Chat form -->
+                            </div>
+                            <!--/ Active Chat -->
+                        </section>
+                        <!--/ Main chat area -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- END: Content-->
+
+    <!-- BEGIN: Footer-->
+    <footer class="footer footer-static footer-light" style="padding:0.3rem 2rem;">
+        <p class="clearfix mb-0"><span class="float-md-start d-block d-md-inline-block mt-25">COPYRIGHT &copy; 2021<a class="ms-25" href="https://1.envato.market/pixinvent_portfolio" target="_blank">Pixinvent</a><span class="d-none d-sm-inline-block">, All rights Reserved</span></span><span class="float-md-end d-none d-md-block">Hand-crafted & Made with<i data-feather="heart"></i></span></p>
+    </footer>
+    <button class="btn btn-primary btn-icon scroll-top" type="button"><i data-feather="arrow-up"></i></button>
+    <!-- END: Footer-->
+
+
+    <!-- BEGIN: Vendor JS-->
+    <script src="../app-assets/vendors/js/vendors.min.js"></script>
+    <!-- BEGIN Vendor JS-->
+
+    <!-- BEGIN: Page Vendor JS-->
+    <!-- END: Page Vendor JS-->
+
+    <!-- BEGIN: Theme JS-->
+    <script src="../app-assets/js/core/app-menu.js"></script>
+    <script src="../app-assets/js/core/app.js"></script>
+    <!-- END: Theme JS-->
+
+    <!-- BEGIN: Page JS-->
+    <script src="../app-assets/js/scripts/pages/app-chat.js"></script>
+    <!-- END: Page JS-->
+
+    <script>
+        $(window).on('load', function() {
+            if (feather) {
+                feather.replace({
+                    width: 14,
+                    height: 14
+                });
+            }
+        })
+    </script>
+</body>
+<!-- END: Body-->
+
+</html>

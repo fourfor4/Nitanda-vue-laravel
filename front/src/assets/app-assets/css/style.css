@@ -1,0 +1,267 @@
+/*================================================================================
+	Item Name: Vuexy - Vuejs, HTML & Laravel Admin Dashboard Template
+	Version: 2.0
+	Author: PIXINVENT
+	Author URL: http://www.themeforest.net/user/pixinvent
+================================================================================
+
+NOTE:
+------
+PLACE HERE YOUR OWN SCSS CODES AND IF NEEDED, OVERRIDE THE STYLES FROM THE OTHER STYLESHEETS.
+WE WILL RELEASE FUTURE UPDATES SO IN ORDER TO NOT OVERWRITE YOUR STYLES IT'S BETTER LIKE THIS.  */
+
+/*QAdashboard  start */
+
+.QA-textarea-outline{
+	padding: 0.571rem 1rem;
+	margin-top:1.5vw;
+	display: flex;
+}
+.QA-textarea{
+	border: 1px solid #d8d6de;
+	border-radius: 0.357rem;
+}
+.QA-textarea-btngroup{
+	margin-top:1vw;
+	margin-bottom:0.3vw;
+}
+.QA-textarea-btngroup .btnrow .btn-group .btn{
+	margin-top:0.4rem;
+	margin-bottom:0.4rem;
+	padding: 0.1rem 0.5rem !important;
+	border-color: #d8d6de !important;
+	color:#454447;
+}
+.QA-textarea-btngroup .processbtn .uploadbtn{
+	margin-right: 1rem;
+}
+.QA-textarea-btngroup .processbtn button{
+	margin-top:0.4rem;
+	margin-bottom:0.4rem;
+	padding-top: 0.2rem !important;
+	padding-bottom: 0.2rem !important;
+	border-color: #d8d6de !important;
+	color:#454447;
+	float:right;
+}
+.user-info-sub{
+	margin-left: 5vw;
+}
+.nitanda-name, .nitanda-fix{
+	color: rgb(0, 131, 218);
+}
+.nitanda-fix{
+	cursor:pointer;
+}
+.nitanda-delete{
+	color: rgb(243, 45, 45);
+	cursor: pointer;
+}
+.nitanda-sublist{
+	margin-bottom:2.5vw;
+}
+.nitanda-subinfo{
+	margin-left:3vw;
+}
+.score, .favourite, .showallcomments, .fix, .delete{
+	cursor:pointer;
+}
+.score:hover, .favourite:hover, .showallcomments:hover{
+	color:rgb(3, 3, 3);
+	font-weight: 600;
+}
+.fix:hover, .delete:hover{
+	font-weight: 600;
+}
+.user-info p span{
+	margin-left:1.5vw;
+}
+.list-adjust{
+	margin-bottom: 2vw !important;
+}
+.checkbox-adjust{
+	display: inline-block;
+	padding-top: 0.5vw;
+	margin-right:2vw;
+}
+.history-list{
+	max-height: 10vw;
+	overflow-y:scroll;
+}
+
+/*QAdashboard  end */
+
+/*QAlist  start */
+
+.history-list{
+	margin-top: 1vw;
+	margin-bottom:2vw;
+}
+.btnrow .btn-group .btn{
+	margin-top: 1vw;
+	color:#454447 !important;
+	border-color:#454447 !important;
+}
+.history p{
+	margin-bottom: 0vw;
+}
+.describe{
+	color:#0b60af;
+}
+.reply{
+	color:#454447;
+	padding-left: 1.3vw;
+}
+.count, .date{
+	padding-left: 1.3vw;
+	vertical-align: middle;
+}
+
+/*QAlist  end */
+
+/*project-card start*/
+
+.modal-position{
+	float:right;
+}
+.card-footer{
+	font-size:0.8rem !important;
+	padding:0.3rem 1.5rem;
+}
+.card-footer span{
+	
+	vertical-align: middle !important;
+}
+.star{
+	font-size: 1.3rem;
+}
+.star-gold{
+	color:rgb(252, 210, 26);
+}
+.favourite{
+	float:right;
+	font-size: 1.5rem;
+}
+.dropbtn button{
+	position: absolute;
+	right:0.4rem;
+	bottom:0.2rem;
+	background: none;
+	border:1px solid #454447;
+	border-radius:50%;
+	padding-bottom: 0.3rem;
+}
+.project-detail{
+	margin-top: 1vw;
+	border-radius: 20px;
+}
+.daterange{
+	float:right !important
+}
+.range{
+	padding-top:0.5rem;
+}
+.maincharge, .subcharge, .salestaff{
+	margin-top: auto;
+    margin-bottom: auto;
+}
+.newtask{
+	text-align: right;
+}
+.width-adjust{
+	width: 25rem !important;
+}
+
+/*project-card end*/
+
+/*project-management start*/
+
+.tasklist{
+	height: 1000px;
+	overflow-y: scroll;
+}
+.subtitle{
+	border-left: 1px solid #dfdddd;
+    margin-left: 1rem;
+    padding-left: 1rem;
+}
+.subtitle::before{
+	display:none;
+}
+.task-category button{
+	margin-right: 1.5rem;
+}
+.task-title{
+	margin-bottom: 0vw !important;
+	padding-bottom: 0vw;
+	padding-top: 1rem;
+	padding-left:1.5rem;
+	padding-right:1.5rem;
+	font-size: 0.8rem !important;
+}
+.task-body{
+	padding-top: 1rem !important;
+}
+.show-toggle{
+	display: block;
+}
+.task-management-content{
+	border:1px solid royalblue;
+	border-radius: 1rem;
+	font-size: 0.8rem;
+	padding: 0.8rem 1rem;
+	cursor:pointer;
+	width:95%;
+}
+.task-management-content p{
+	padding:0;
+	margin:0;
+}
+.modal-title{
+	width: 100%;
+}
+.statusbar, .rangebar{
+	padding-right: 0;
+	--bs-gutter-x: 0 !important;
+}
+.expand{
+	float:right;
+}
+.test, td, th {
+	border: 1px solid #d1d1d1;
+  }
+  
+  table {
+	border-collapse: collapse;
+	width: 100%;
+  }
+  
+  td {
+	text-align: center;
+  }
+.testresult{
+	width:60%;
+}
+.fix-task{
+	background-color:lightblue;
+}
+.delete-task{
+	background-color: orange;
+}
+.modal-body button{
+	padding: 0.786rem 0.7rem;
+	border-color: #e3e3e3 !important;
+}
+.tasktest{
+	margin: 0;
+}
+.commentbtn{
+	text-align: right;
+}
+.commentbtn button{
+	margin-left: 1rem;
+	border-color: #e3e3e3 !important;
+}
+.commentavatar{
+	margin-top:4rem;
+}
