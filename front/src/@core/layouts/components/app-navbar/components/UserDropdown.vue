@@ -39,7 +39,7 @@
         icon="UserIcon"
         class="mr-50"
       />
-      <span>Profile</span>
+      <span>プロフィール</span>
     </b-dropdown-item>
     <b-dropdown-item
       link-class="d-flex align-items-center"
@@ -49,7 +49,7 @@
         icon="SettingsIcon"
         class="mr-50"
       />
-      <span>Settings</span>
+      <span>設定</span>
     </b-dropdown-item>
     <b-dropdown-item
       link-class="d-flex align-items-center"
@@ -60,7 +60,7 @@
         icon="LogOutIcon"
         class="mr-50"
       />
-      <span>Logout</span>
+      <span>ログアウト</span>
     </b-dropdown-item></b-nav-item-dropdown>
 </template>
 

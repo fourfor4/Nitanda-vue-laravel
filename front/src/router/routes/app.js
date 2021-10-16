@@ -10,19 +10,26 @@ export default [
     },
   },
   {
-    path: '/login',
-    name: 'auth-login',
-    component: () => import('@/views/wbc/auth/Login.vue'),
-    meta: {
-      layout: 'full',
-      resource: 'Auth',
-      redirectIfLoggedIn: true,
-    },
+    path: '/dashboard1/',
+    name: 'dashboard1',
+    component: () => import('@/views/wbc/Dashboard.vue'),
   },
   {
-    path: '/dashboard',
+    path: '/dashboard/',
     name: 'dashboard',
-    component: () => import('@/views/wbc/Dashboard.vue'),
+    component: () => import('@/Modules/views/app/Dashboard/index.vue'),
+  },
+  {
+    path: '/dashboard/:label',
+    name: 'dashboard-label',
+    component: () => import('@/Modules/views/app/Dashboard/index.vue'),
+    meta: {
+      navActiveLink: 'dashboard',
+    },
+    beforeEnter(to, _, next) {
+      if (['ranking', 'post', 'bookmark', 'teamtask'].includes(to.params.label)) next()
+      else next({ name: 'error-404' })
+    },
   },
   {
     path: '/dashboard-ranking',

@@ -30,11 +30,8 @@ tag
 tagVariant
 
 */
-//WBC
-import wbc from './wbc'
+//APP
+import app from './app'
 
-// Array of sections
-// export default [...dashboard, ...appsAndPages, ...uiElements, ...formAndTable, ...chartsAndMaps, ...others]
-
-//WBC Array of sections
-export default [...wbc]
+//APP Array of sections
+export default [...app]

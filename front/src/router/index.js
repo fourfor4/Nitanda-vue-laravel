@@ -4,7 +4,8 @@ import VueRouter from 'vue-router'
 // Routes
 import { canNavigate } from '@/libs/acl/routeProtection'
 import { isUserLoggedIn, getUserData, getHomeRouteForLoggedInUser } from '@/auth/utils'
-import mainApp from './routes/main-app'
+import auth from './routes/auth'
+import app from './routes/app'
 
 Vue.use(VueRouter)
 
@@ -16,7 +17,8 @@ const router = new VueRouter({
   },
   routes: [
     { path: '/', redirect: { name: 'dashboard' } },
-    ...mainApp,
+    ...auth,
+    ...app,
     {
       path: '*',
       redirect: 'error-404',

@@ -91,7 +91,7 @@
               block
               :disabled="invalid"
             >
-              Sign in
+              ログイン
             </b-button>
           </b-form>
         </validation-observer>
@@ -135,11 +135,8 @@ export default {
   mixins: [togglePasswordVisibility],
   data() {
     return {
-      status: '',
       password: 'admin',
       userEmail: 'admin@demo.com',
-      sideImg: require('@/assets/images/pages/login-v2.svg'),
-
       // validation rules
       required,
       email,
