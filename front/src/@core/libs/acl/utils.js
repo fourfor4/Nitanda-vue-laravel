@@ -17,7 +17,10 @@ export const can = (action, subject) => {
  * Based on item's action and resource
  * @param {Object} item navigation object item
  */
-export const canViewVerticalNavMenuLink = item => can(item.action, item.resource)
+export const canViewVerticalNavMenuLink = item => { 
+  console.log('link',item)
+  can(item.action, item.resource)
+}
 
 /**
  * Check if user can view item based on it's ability
@@ -26,6 +29,7 @@ export const canViewVerticalNavMenuLink = item => can(item.action, item.resource
  */
 // eslint-disable-next-line arrow-body-style
 export const canViewVerticalNavMenuGroup = item => {
+  console.log('group', item)
   // ! This same logic is used in canViewHorizontalNavMenuGroup and canViewHorizontalNavMenuHeaderGroup. So make sure to update logic in them as well
   const hasAnyVisibleChild = item.children.some(i => can(i.action, i.resource))
 
@@ -42,7 +46,10 @@ export const canViewVerticalNavMenuGroup = item => {
  * Based on item's action and resource
  * @param {Object} item navigation object item
  */
-export const canViewVerticalNavMenuHeader = item => can(item.action, item.resource)
+export const canViewVerticalNavMenuHeader = item => {
+  console.log('header', item)
+  can(item.action, item.resource)
+}
 
 /**
  * Check if user can view item based on it's ability

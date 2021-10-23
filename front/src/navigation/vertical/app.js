@@ -10,40 +10,21 @@ export default [
     header: 'Q&A',
   },
   {
-    title: 'Q&A',
-    route: 'qa-dashboard',
+    title: 'Q＆Aダッシュボード',
+    route: 'qa',
     icon: 'AwardIcon',
-  },
-  {
-    header: 'プロジェクト',
-  },
-  {
-    title: 'プロジェクト',
-    route: 'project-management',
-    icon: 'ClipboardIcon',
-  },
-  {
-    header: 'タスク管理',
-  },
-  {
-    title: 'タスク管理',
-    route: 'project-card',
-    icon: 'ToolIcon',
   },
   {
     header: '進捗管理',
   },
   {
-    title: '進捗管理',
-    route: 'user-list',
+    title: 'ユーザー登録',
+    route: 'user-register',
     icon: 'TagIcon',
   },
   {
-    header: 'カルテ',
+    title: 'ユーザーリスト',
+    route: 'user-list',
+    icon: 'TagIcon',
   },
-  {
-    title: 'カルテ',
-    route: 'workspace',
-    icon: 'ServerIcon',
-  }
 ]

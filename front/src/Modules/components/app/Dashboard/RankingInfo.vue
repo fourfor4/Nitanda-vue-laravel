@@ -81,7 +81,7 @@ import {
   BCol,
   BTable
 } from 'bootstrap-vue'
-import ChartjsComponentLineChart from '@/Modules/components/layouts/charts/ChartjsComponentLineChart.vue'
+import ChartjsComponentLineChart from '@/Modules/common-layouts/charts/ChartjsComponentLineChart.vue'
 import chartjsData from './chartjsData'
 
 export default defineComponent({

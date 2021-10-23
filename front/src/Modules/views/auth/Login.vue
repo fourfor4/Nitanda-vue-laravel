@@ -34,11 +34,11 @@
               <validation-provider
                 #default="{ errors }"
                 name="Email"
-                rules="required|email"
+                rules="required"
               >
                 <b-form-input
                   id="email"
-                  v-model="userEmail"
+                  v-model="login_id"
                   name="login-email"
                   :state="errors.length > 0 ? false:null"
                   placeholder=""
@@ -107,12 +107,9 @@ import { ValidationProvider, ValidationObserver } from 'vee-validate'
 import {
   BButton, BForm, BFormInput, BFormGroup, BCard, BLink, BCardTitle, BCardText, BInputGroup, BInputGroupAppend, BFormCheckbox,
 } from 'bootstrap-vue'
-import VuexyLogo from '@core/layouts/components/Logo.vue'
+import VuexyLogo from '@/Modules/theme-layouts/components/Logo.vue'
 import { required, email } from '@validations'
 import { togglePasswordVisibility } from '@core/mixins/ui/forms'
-import ToastificationContent from '@core/components/toastification/ToastificationContent.vue'
-import useJwt from '@/auth/jwt/useJwt'
-import { getHomeRouteForLoggedInUser } from '@/auth/utils'
 
 export default {
   components: {
@@ -135,8 +132,8 @@ export default {
   mixins: [togglePasswordVisibility],
   data() {
     return {
+      login_id: 'admin',
       password: 'admin',
-      userEmail: 'admin@demo.com',
       // validation rules
       required,
       email,
@@ -149,37 +146,14 @@ export default {
   },
   methods: {
     login() {
+      console.log(this.$router);
       this.$refs.loginForm.validate().then(success => {
         if (success) {
-          useJwt.login({
-            email: this.userEmail,
-            password: this.password,
+          this.$store.dispatch('auth/loginUser', {
+            login_id: this.login_id,
+            password: this.password
           })
-            .then(response => {
-              const { userData } = response.data
-              useJwt.setToken(response.data.accessToken)
-              useJwt.setRefreshToken(response.data.refreshToken)
-              localStorage.setItem('userData', JSON.stringify(userData))
-              this.$ability.update(userData.ability)
 
-              // ? This is just for demo purpose. Don't think CASL is role based in this case, we used role in if condition just for ease
-              this.$router.replace(getHomeRouteForLoggedInUser(userData.role))
-                .then(() => {
-                  this.$toast({
-                    component: ToastificationContent,
-                    position: 'top-right',
-                    props: {
-                      title: `ようこそ ${userData.fullName || userData.username}`,
-                      icon: 'CoffeeIcon',
-                      variant: 'success',
-                      text: `${userData.role}として正常にログインしました。これで、探索を開始できます。`,
-                    },
-                  })
-                })
-            })
-            .catch(error => {
-              this.$refs.loginForm.setErrors(error.response.data.error)
-            })
         }
       })
     },

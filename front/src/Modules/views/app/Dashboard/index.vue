@@ -35,6 +35,9 @@ import OwnInfo from '@/Modules/components/app/Dashboard/OwnInfo.vue'
 import OwnScore from '@/Modules/components/app/Dashboard/OwnScore.vue'
 import RankingInfo from '@/Modules/components/app/Dashboard/RankingInfo.vue'
 import MainInfo from '@/Modules/components/app/Dashboard/MainInfo.vue'
+import { mapGetters } from 'vuex'
+import { useToast } from 'vue-toastification/composition'
+import ToastificationContent from '@core/components/toastification/ToastificationContent.vue'
 
 export default defineComponent({
   components: {
@@ -58,7 +61,10 @@ export default defineComponent({
     //Get params of url
     params : function() {
       return this.$route.params.label ? this.$route.params.label : ""
-    }
+    },
+    ...mapGetters({
+      userData: 'auth/current_user'
+    }),
   },
   setup() {
     const navButtons = [
@@ -68,9 +74,22 @@ export default defineComponent({
       { title: 'ランキング', icon: 'BellIcon', route: { name: 'dashboard-label', params: { label: 'ranking' } } },
       { title: 'チームタスク', icon: 'LinkIcon', route: { name: 'dashboard-label', params: { label: 'teamtask' } } },
     ]
+    const userInfo = {}
     return {
       navButtons,
+      userInfo
     }
   },
+  mounted() {
+    // this.$toast({
+    //   component: ToastificationContent,
+    //   props: {
+    //     title: `Welcome `,
+    //     icon: 'CoffeeIcon',
+    //     variant: 'success',
+    //     text: `You have successfully logged in as . Now you can start to explore!`,
+    //   },
+    // })
+  }
 })
 </script>
