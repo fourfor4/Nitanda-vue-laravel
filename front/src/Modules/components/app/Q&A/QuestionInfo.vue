@@ -5,9 +5,11 @@
         <b-row>
           <b-col sm="6">
             <b-input-group class="input-group-merge">
-              <b-form-input placeholder="検索"></b-form-input>
-              <b-input-group-append is-text>
-                <feather-icon icon="SearchIcon"></feather-icon>
+              <b-form-input placeholder="検索" v-model="searchVal"></b-form-input>
+              <b-input-group-append>
+                <b-button variant="outline-primary" @click="search">
+                  <feather-icon icon="SearchIcon"></feather-icon>
+                </b-button>
               </b-input-group-append>
             </b-input-group>
           </b-col>
@@ -20,43 +22,29 @@
                 class="mb-1"
                 placeholder="質問内容"
                 rows="5"
+                v-model="newQuestion.content"
               ></b-form-textarea>
               <b-row>
                 <b-col lg="7">
                   <b-button-group
                     size="sm"
                   >
-                    <b-button
+                    <b-button 
+                      v-for="tag in common_states.tags"
+                      :key="'tag' + tag.id"
                       v-ripple.400="'rgba(113, 102, 240, 0.15)'"
                       variant="outline-primary"
-                      :class="'active'"
+                      :class="tag.id === newQuestion.tag_id && 'active'"
+                      @click="newQuestion.tag_id = tag.id"
                     >
-                      タグ
-                    </b-button>
-                    <b-button
-                      v-ripple.400="'rgba(113, 102, 240, 0.15)'"
-                      variant="outline-primary"
-                    >
-                      タグ1
-                    </b-button>
-                    <b-button
-                      v-ripple.400="'rgba(113, 102, 240, 0.15)'"
-                      variant="outline-primary"
-                    >
-                      タグ2
-                    </b-button>
-                    <b-button
-                      v-ripple.400="'rgba(113, 102, 240, 0.15)'"
-                      variant="outline-primary"
-                    >
-                      タグ3
+                      {{tag.tag_name}}
                     </b-button>
                   </b-button-group>
                 </b-col>
                 <b-col lg="5">
                   <div class="d-flex align-items-center">
                     <feather-icon 
-                      class="mr-2 cursor-pointer" 
+                      :class="['mr-2', 'cursor-pointer', newQuestion.attachment && 'text-danger']" 
                       icon="UploadIcon"
                       @click="onUploadBtnClick"
                     ></feather-icon>
@@ -64,14 +52,15 @@
                       ref="uploader"
                       class="d-none"
                       type="file"
+                      @change="fileUpload"
                     />
                     <b-form-checkbox
-                      :value="true"
+                      v-model="newQuestion.anonymous"
                       class="custom-control-primary"
                     >
                       匿名投稿
                     </b-form-checkbox>
-                    <b-button size="sm" class="ml-auto" variant="outline-primary">
+                    <b-button size="sm" class="ml-auto" variant="outline-primary" v-on:click="postQuestion">
                       送信
                     </b-button>
                   </div>
@@ -85,6 +74,7 @@
   </section>
 </template>
 <script>
+import ToastificationContentVue from '@core/components/toastification/ToastificationContent.vue'
 import { defineComponent } from '@vue/composition-api'
 import {
   BCard, 
@@ -100,6 +90,7 @@ import {
   BFormCheckbox
 } from 'bootstrap-vue'
 import Ripple from 'vue-ripple-directive'
+import { mapGetters } from 'vuex'
 
 export default defineComponent({
   components: {
@@ -118,6 +109,21 @@ export default defineComponent({
   directives: {
     Ripple,
   },
+  computed: {
+    ...mapGetters({
+      newQuestion: 'qa/newQuestion',
+      common_states: 'common/common_states',
+      qaSearchVal: 'qa/qaSearchVal'
+    }),
+    searchVal: {
+      get(){
+        return this.qaSearchVal
+      },
+      set(searchVal){
+        this.$store.commit('qa/SET_QA_SEARCHVAL', {searchVal})
+      } 
+    }
+  },
   setup() {
     
   },
@@ -125,9 +131,49 @@ export default defineComponent({
     onUploadBtnClick() {
       this.$refs.uploader.click()
     },
-    attachmentFile(id) {
-      this.$refs.attachment[id].click()
+
+    //post question
+    postQuestion() {
+      if (this.newQuestion.content !== '') {
+        this.$swal({
+          title: '本当に問題を提示しますか？',
+          icon: 'question',
+          showCancelButton: true,
+          confirmButtonText: 'はい、そうです。',
+          cancelButtonText: 'いいえ。',
+          customClass: {
+            confirmButton: 'btn btn-primary',
+            cancelButton: 'btn btn-outline-danger ml-1',
+          },
+          buttonsStyling: false,
+        }).then(result => {
+          if (result.value) {
+            this.$store.dispatch('qa/postQuestion')
+          }
+        })
+      } else {
+        this.$toast({
+          component: ToastificationContentVue,
+          position: 'top-right',
+          props: {
+            title: `内容を入力してください。`,
+            icon: 'CoffeeIcon',
+            variant: 'danger',
+          },
+        })
+      }
     },
+
+    // set new question attachment
+    fileUpload: function(event) {
+      var input = event.target;
+      this.newQuestion.attachment=input.files[0];
+    },
+
+    //search qa group
+    search: function() {
+      this.$store.dispatch('qa/searchQAGroup')
+    }
   },
 })
 </script>

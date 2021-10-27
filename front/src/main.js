@@ -55,17 +55,17 @@ new Vue({
 window.axios = require('axios')
 window.axios.defaults.headers.common['Access-Control-Allow-Origin'] = '*';
 
-Pusher.logToConsole = true;
+// Pusher.logToConsole = true;
 
 let authorizer = (channel, options) => {
   return {
     authorize: (socketId, callback) => {
-      window.axios.post(appConfig.apiBaseUrl + 'auth/get_auth', {
+      window.axios.post(appConfig.apiBaseUrl + 'auth/retrieve_auth', {
         socket_id: socketId,
         channel_name: channel.name
       }, {
         headers: {
-          Authorization: Cookies.get('token') ? `Bearer ${Cookies.get('token')}` : null,
+          Authorization: localStorage.getItem('token') ? `Bearer ${localStorage.getItem('token')}` : null,
           'Content-Type': 'application/json'
         }
       })

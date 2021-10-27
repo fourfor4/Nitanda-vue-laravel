@@ -9,6 +9,11 @@ use Illuminate\Notifications\Notifiable;
 
 use Tymon\JWTAuth\Contracts\JWTSubject;
 
+use App\Models\DepartmentMaster;
+use App\Models\RoleMaster;
+use App\Models\Question;
+use App\Models\Answer;
+use App\Models\QAFollow;
 
 class User extends Authenticatable implements JWTSubject
 {
@@ -73,4 +78,24 @@ class User extends Authenticatable implements JWTSubject
     public function getJWTCustomClaims() {
         return [];
     }    
+
+    public function departmentMaster() {
+        return $this->belongsTo(DepartmentMaster::class, 'department_id');
+    }
+    
+    public function roleMaster() {
+        return $this->belongsTo(RoleMaster::class, 'role_id');
+    }
+
+    public function question() {
+        return $this->hasMany(Question::class);
+    }
+
+    public function answer() {
+        return $this->hasMany(Question::class);
+    }
+
+    public function qafollow() {
+        return $this->hasMany(QAFollow::class);
+    }
 }

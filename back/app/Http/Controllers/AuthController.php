@@ -9,6 +9,7 @@ use Validator;
 use JWTAuth;
 use Illuminate\Support\Facades\Log;
 use Pusher\Pusher;
+use Illuminate\Support\Facades\Hash;
 
 
 class AuthController extends Controller
@@ -53,9 +54,6 @@ class AuthController extends Controller
             'employee_name' => 'required|string|between:1,100',
             'employee_id' => 'required|string|between:1,100|unique:users',
             'login_id' => 'required|string|max:100|unique:users',
-            'password' => 'required|string|min:6',
-            'department_id' => 'required'
-            // 'password' => 'required|string|confirmed|min:6',
         ]);
 
         if($validator->fails()) {
@@ -78,7 +76,7 @@ class AuthController extends Controller
         if ($file) {
             $generated_new_name = time() . '.' . 'jpg';
             $request->file('avatar')->move($upload_path, $generated_new_name);
-            $user->avatar_url = $upload_path."/".$generated_new_name;
+            $user->avatar_url = "upload/avatar/".$generated_new_name;
         }
 
         $user->employee_id = $request->employee_id;
@@ -86,27 +84,13 @@ class AuthController extends Controller
         $user->login_id = $request->login_id;
         $user->hire_date = $request->hire_date;
         $user->leave_date = $request->leave_date;
-        $user->role = $request->role;
+        $user->role_id = $request->role_id;
         $user->department_id = $request->department_id;
         $user->note = $request->note;
         $user->affiliation = $request->affiliation;
         $user->mygoal = $request->mygoal;
-        $user->password = $request->password;
+        $user->password = Hash::make($request->password);
         $user->save();
-        // $user = User::create([
-        //     'employee_id' => $request->employee_id,
-        //     'employee_name' => $request->employee_name,
-        //     'login_id' => $request->login_id,
-        //     'hire_date' => $request->hire_date,
-        //     'leave_date' => $request->leave_date,
-        //     'role' => $request->role,
-        //     'department_id' => $request->department_id,
-        //     'note' => $request->note,
-        //     'affiliation' => $request->affiliation,
-        //     'mygoal' => $request->mygoal,
-        //     'avatar_url' => $upload_path."/".$generated_new_name,
-        //     'password' => bcrypt($request->password)
-        // ]);
 
         return response()->json([
             'success' => true,
@@ -143,17 +127,18 @@ class AuthController extends Controller
      *
      * @return \Illuminate\Http\JsonResponse
      */
-    public function userProfile() {
+    public function retrieveUser() {
+        $user = User::with('departmentMaster')->where('id', auth()->user()->id)->where('del_flag', '0')->first();
         return response()->json([
             'msg' => [
-                'user' => auth()->user(),
+                'user' => $user,
                 // 'token' => JWTAuth::refresh(JWTAuth::getToken())
             ],
             'success' => true
         ], 200);
     }
 
-    public function getAuth(Request $request) {
+    public function retrieveAuth(Request $request) {
         $channel=$request->channel_name;
         $socketId = $request->socket_id;
         $pusher = new Pusher(config('broadcasting.connections.pusher.key'), config('broadcasting.connections.pusher.secret'), config('broadcasting.connections.pusher.app_id'));

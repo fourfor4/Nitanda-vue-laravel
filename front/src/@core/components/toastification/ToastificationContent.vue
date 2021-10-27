@@ -69,6 +69,14 @@ export default {
       default: false,
     },
   },
+  methods: {
+    onClose() {
+      console.log("origin")
+    }
+  },
+  destroyed() {
+    this.$emit('onClose')
+  }
 }
 </script>
 

@@ -4,7 +4,9 @@ import Cookies from 'js-cookie'
 import appConfig from '@/appConfig'
 
 import router from '@/router'
-import Toast from '@/Modules/common-layouts/toast/Toast'
+
+import Vue from 'vue'
+import ToastificationContent from '@core/components/toastification/ToastificationContent.vue'
 
 const {apiBaseUrl} = appConfig
 
@@ -12,7 +14,7 @@ export default {
   namespaced: true,
   state: {
     current_user: null,
-    token: Cookies.get('token'),
+    token: localStorage.getItem('token'),
     logged: false,
     newUser: {
       avatar_url: '',
@@ -23,11 +25,12 @@ export default {
       hire_date: '',
       leave_date: '',
       department_id: 0,
-      role: 0,
+      role_id: null,
       grade: '',
       note: '',
       mygoal: '',
-      affiliation: ''
+      affiliation: '',
+      preview: null
     }
   },
   getters: {
@@ -57,7 +60,6 @@ export default {
     },
 
     [types.SET_NEW_USER] (state) {
-      console.log('setnewuser')
       state.newUser = {
         avatar_url: '',
         employee_name: '',
@@ -71,17 +73,17 @@ export default {
         grade: '',
         note: '',
         mygoal: '',
-        affiliation: ''
+        affiliation: '',
+        preview: null
       }
     }
   },
+  
   actions: {
-    async getUser ({ commit, state }) {
+    async retrieveUser ({ commit, state }) {
       try {
-        const { data } = await axios.get(apiBaseUrl + 'auth/get_user', {headers: {'Authorization': `Bearer ${localStorage.getItem('token')}`}})
-        console.log(data)
+        const { data } = await axios.get(apiBaseUrl + 'auth/retrieve_user', {headers: {'Authorization': `Bearer ${localStorage.getItem('token')}`}})
         if (data.success) {
-          console.log(data.msg.token)
           commit(types.SET_CURRENT_USER, { user: data.msg.user })
         } else {
           commit(types.LOGOUT)
@@ -94,13 +96,12 @@ export default {
     async logout ({ commit }) {
       try {
         const { data } = await axios.post(apiBaseUrl + 'auth/logout')
-        console.log(data)
       } catch (e) { 
       }
       commit(types.LOGOUT)
     },
 
-    async registerUser ({commit, state}, payload){
+    async registerUser ({commit, state}){
       try {
         let formData = new FormData()
         Object.keys(state.newUser).forEach(key => {
@@ -108,14 +109,46 @@ export default {
         })
         const { data } = await axios.post(apiBaseUrl + "auth/register", formData, {
           headers: {
+            'Authorization': `Bearer ${localStorage.getItem('token')}`,
             'Content-Type': "multipart/form-data"
           }
         })
         if(data.success){
-          console.log(data)
           commit(types.SET_NEW_USER)
+          Vue.$toast({
+            component: ToastificationContent,
+            position: 'top-right',
+            props: {
+              title: `成功`,
+              icon: 'CoffeeIcon',
+              variant: 'success',
+              text: `ユーザー登録は成功です。`,
+            },
+          })
         } else {
-
+          var error = JSON.parse(data.error[0])
+          if (error.employee_id) {
+            Vue.$toast({
+              component: ToastificationContent,
+              position: 'top-right',
+              props: {
+                title: 'The user with same employee_id is exsited already!',
+                icon: 'CoffeeIcon',
+                variant: 'warning',
+              },
+            })
+          }
+          if (error.login_id) {
+            Vue.$toast({
+              component: ToastificationContent,
+              position: 'top-right',
+              props: {
+                title: 'The user with same login_id is exsited already!',
+                icon: 'CoffeeIcon',
+                variant: 'warning',
+              },
+            })
+          }
         }
       } catch (error) {
         commit(types.LOGOUT)
@@ -128,11 +161,40 @@ export default {
         if (res.data.success) {
           commit(types.SAVE_TOKEN, {token:res.data.msg.access_token, remember:true});
           commit(types.SET_CURRENT_USER, {user:res.data.msg.user});
+          Vue.$toast({
+            component: ToastificationContent,
+            position: 'top-right',
+            props: {
+              title: `いらっしゃいませ`,
+              icon: 'CoffeeIcon',
+              variant: 'success',
+              text: `正常にログインしました。`,
+            },
+          })
           router.push('/')
-          Toast()
+        } else {
+          Vue.$toast({
+            component: ToastificationContent,
+            position: 'top-right',
+            props: {
+              title: `いらっしゃいませ`,
+              icon: 'CoffeeIcon',
+              variant: 'danger',
+              text: `ログインに失敗しました。`,
+            },
+          })
         }
       } catch (error) {
-        
+        Vue.$toast({
+          component: ToastificationContent,
+          position: 'top-right',
+          props: {
+            title: `いらっしゃいませ`,
+            icon: 'CoffeeIcon',
+            variant: 'danger',
+            text: `ログインに失敗しました。`,
+          },
+        })
       }
     }
   }

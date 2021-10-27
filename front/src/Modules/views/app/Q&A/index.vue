@@ -1,31 +1,25 @@
 <template>
   <section id="qa">
     <qa-question></qa-question>
-    <qa-answers></qa-answers>
+    <q-a-group></q-a-group>
   </section>
 </template>
 <script>
 import { defineComponent } from '@vue/composition-api'
-import QaAnswers from '@/Modules/components/app/Q&A/AnswersInfo.vue'
+import QAGroup from '@/Modules/components/app/Q&A/QAGroupInfo.vue'
 import QaQuestion from "@/Modules/components/app/Q&A/QuestionInfo.vue"
 import jsCookie from 'js-cookie'
 
 export default defineComponent({
   components: {
     QaQuestion,
-    QaAnswers
+    QAGroup
   },
   setup() {
     
   },
   mounted() {
-
-    console.log(Echo)
-    Echo.private('question.created').listen('QuestionCreated',(payload) => {
-      console.log('QuestionCreated', payload)
-    }).listen('MessageCreated',(payload) => {
-      console.log('MessageCreated', payload)
-    })
+    
   },
   destroyed() {
     Echo.leave('question.created')

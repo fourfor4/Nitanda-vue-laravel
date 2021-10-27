@@ -1,6 +1,6 @@
 <template>
   <b-button
-    :navButton = navButton
+    :navButton="navButton"
     v-ripple.400="'rgba(255, 255, 255, 0.15)'"
     :variant="params.label === navButton.route.params.label ? `primary` : `flat-primary`"
     :to="navButton.route"

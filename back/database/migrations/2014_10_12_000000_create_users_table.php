@@ -29,7 +29,7 @@ class CreateUsersTable extends Migration
             $table->integer('creator_id')->nullable(); //作成者（ユーザID)
             $table->integer('updater_id')->nullable(); //更新者（ユーザID）
             $table->integer('department_id');
-            $table->integer('role'); 
+            $table->integer('role_id'); 
             $table->enum('del_flag', ['0', '1'])->default(0); //削除区分
             $table->timestamps();
         });

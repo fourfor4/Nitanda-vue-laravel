@@ -9,7 +9,7 @@ import verticalMenu from './vertical-menu'
 //wbc main
 import auth from './auth'
 import common from './common'
-
+import qa from './qa'
 Vue.use(Vuex)
 
 export default new Vuex.Store({
@@ -18,7 +18,8 @@ export default new Vuex.Store({
     appConfig,
     verticalMenu,
     auth,
-    common
+    common,
+    qa
   },
   strict: process.env.DEV,
 })

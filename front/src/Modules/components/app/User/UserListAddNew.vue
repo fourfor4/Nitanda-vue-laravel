@@ -15,7 +15,7 @@
       <!-- Header -->
       <div class="d-flex justify-content-between align-items-center content-sidebar-header px-2 py-1">
         <h5 class="mb-0">
-          Add New User
+          新しいユーザーを追加
         </h5>
         <feather-icon
           class="ml-1 cursor-pointer"
@@ -56,9 +56,8 @@
                 trim
                 placeholder="あみ"
               />
-
               <b-form-invalid-feedback>
-                {{ validationContext.errors[0] }}
+                この項目は必須です。
               </b-form-invalid-feedback>
             </b-form-group>
           </validation-provider>

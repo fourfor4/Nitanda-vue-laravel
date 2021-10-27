@@ -6,10 +6,10 @@ use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class DepartmentMaster extends Model
+class RoleMaster extends Model
 {
     use HasFactory;
-
+    
     public function user() {
         return $this->hasMany(User::class);
     }

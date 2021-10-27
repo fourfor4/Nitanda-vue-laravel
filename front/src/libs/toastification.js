@@ -9,7 +9,7 @@ import '@core/scss/vue/libs/toastification.scss'
  */
 Vue.use(Toast, {
   hideProgressBar: true,
-  closeOnClick: false,
+  closeOnClick: true,
   closeButton: false,
   icon: false,
   timeout: 3000,
