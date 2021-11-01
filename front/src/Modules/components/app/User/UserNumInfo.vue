@@ -1,19 +1,36 @@
 <template>
   <section id="user-num-info">
     <b-row>
-      <b-col lg="2" sm="4" v-for="userNum in userNumInfo" :key="userNum.desc">
+      <b-col lg="2" sm="4">
         <b-card no-body>
           <b-card-body class="d-flex align-items-center justify-content-between">
             <div>
               <h3 class="fw-bolder mb-75">
-                {{userNum.num}}
+                {{userList.length}}
               </h3>
               <span>
-                {{userNum.desc}}
+                {{'総従業員数'}}
               </span>
             </div>
-            <b-avatar :variant="userNum.color" size="lg">
-              <feather-icon :icon="userNum.icon" size="20"></feather-icon>
+            <b-avatar variant="light-primary" size="lg">
+              <feather-icon icon="UserIcon" size="20"></feather-icon>
+            </b-avatar>
+          </b-card-body>
+        </b-card>
+      </b-col>
+      <b-col lg="2" sm="4" v-for="department in common_states.departments" :key="department.id">
+        <b-card no-body>
+          <b-card-body class="d-flex align-items-center justify-content-between">
+            <div>
+              <h3 class="fw-bolder mb-75">
+                {{userList.filter(item => item.department_id == department.id).length}}
+              </h3>
+              <span>
+                {{department.department_name}}
+              </span>
+            </div>
+            <b-avatar variant="light-primary" size="lg">
+              <feather-icon icon="UserIcon" size="20"></feather-icon>
             </b-avatar>
           </b-card-body>
         </b-card>
@@ -30,6 +47,7 @@ import {
   BCard,
   BAvatar
 } from 'bootstrap-vue'
+import { mapGetters } from 'vuex'
 
 export default defineComponent({
   components: {
@@ -38,6 +56,12 @@ export default defineComponent({
     BCardBody,
     BCard,
     BAvatar
+  },
+  computed: {
+    ...mapGetters({
+      userList: 'auth/userList',
+      common_states: 'common/common_states',
+    })
   },
   setup() {
     const userNumInfo = [

@@ -64,4 +64,9 @@ export default [
     name: 'user-list',
     component: () => import('@/Modules/views/app/User/List.vue'),
   },
+  {
+    path: '/user/list/:userId',
+    name: 'user-edit',
+    component: () => import('@/Modules/views/app/User/Edit.vue')
+  }
 ]

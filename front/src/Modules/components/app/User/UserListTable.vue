@@ -2,8 +2,6 @@
   <section id="user-list-table">
     <user-list-add-new
       :is-add-new-user-sidebar-active.sync="isAddNewUserSidebarActive"
-      :role-options="[]"
-      :plan-options="[]"
     />
     <b-card no-body>
       <b-card-header>
@@ -35,11 +33,11 @@
                 <b-col sm="12" md="4" class="mb-1">
                   <b-form-input 
                     v-model="searchQuery"
-                    placeholder="検索..."
+                    placeholder="従業員名..."
                   />
                 </b-col>
                 <b-col sm="12" md="4" class="mb-1">
-                  <v-select
+                  <!-- <v-select
                     v-model="exportVal"
                     :options="exportOptions"
                     class="w-100"
@@ -53,7 +51,7 @@
                       />
                       <span>{{title}}</span>
                     </template>
-                  </v-select>
+                  </v-select> -->
                 </b-col>
                 <b-col sm="12" md="4" class="mb-1">
                   <b-button
@@ -71,7 +69,7 @@
         <b-table
           ref="userListTable"
           class="position-relative"
-          :items="[]"
+          :items="filterUserList"
           responsive
           :fields="tableColumns"
           primary-key="id"
@@ -79,14 +77,75 @@
           show-empty
           empty-text="データなし"
           :sort-desc.sync="isSortDirDesc"
+          :per-page="perPage"
+          :current-page="currentPage"
         >
-
+          <template #cell(id)="data">
+            {{data.index + 1}}
+          </template>
+          <template #cell(avatar_url)="data">
+            <b-avatar
+              class="q_user_avatar"
+              :src="data.value && appConfig.serverUrl + data.value"
+              size="lg"
+            />
+          </template>
+          <template #cell(department_id)="data">
+            {{
+              commonStates.departments.filter(item => item.id == data.value).length > 0 
+                ? commonStates.departments.filter(item => item.id == data.value)[0].department_name
+                : ''
+            }}
+          </template>
+          <template #cell(role_id)="data">
+            {{
+              commonStates.roles.filter(item => item.id == data.value).length > 0 
+                ? commonStates.roles.filter(item => item.id == data.value)[0].role_name
+                : ''
+            }}
+          </template>
+          <template #cell(action)="data">
+            <b-button 
+              variant="flat-primary"
+              class="btn-icon"
+              :to="'/user/list/'+data.item.id"
+            >
+              <feather-icon
+                icon="EditIcon"
+                class="mr-0 cursor-pointer"
+                :to="'/register'"
+              >
+              </feather-icon>
+            </b-button>
+            <b-button
+              variant="flat-danger"
+              class="btn-icon"
+              @click="deleteUser(data.item.id)"
+            >
+              <feather-icon
+                icon="Trash2Icon"
+                class="cursor-pointer"
+              >
+              </feather-icon>
+            </b-button>
+          </template>
         </b-table>
+        <div class="d-flex mt-1 pr-1">
+          <b-pagination
+            class="ml-auto"
+            v-model="currentPage"
+            :total-rows="filterUserList.length"
+            :per-page="perPage"
+          />
+        </div>
       </b-card-body>
     </b-card>
   </section>
 </template>
+
 <script>
+
+import appConfig from '@/appConfig'
 import { defineComponent, ref } from '@vue/composition-api'
 import {
   BCard,
@@ -97,9 +156,12 @@ import {
   BRow,
   BCol,
   BFormInput,
-  BButton
+  BButton,
+  BAvatar,
+  BPagination
 } from 'bootstrap-vue'
 import vSelect from 'vue-select'
+import { mapGetters } from 'vuex'
 import UserListAddNew from './UserListAddNew.vue'
 
 export default defineComponent({
@@ -113,18 +175,34 @@ export default defineComponent({
     BCol,
     BFormInput,
     BButton,
+    BAvatar,
+    BPagination,
+
     vSelect,
     //add new user component
     UserListAddNew
+  },
+  computed: {
+    ...mapGetters({
+      userList: 'auth/userList',
+      commonStates: 'common/common_states',
+    }),
+    filterUserList: function() {
+      return this.userList.filter(item => {
+        if (item.employee_name.indexOf(this.searchQuery) > -1) {
+          return item
+        }
+      })
+    },
   },
   setup() {
     //show add new user sidebar (sync)
     const isAddNewUserSidebarActive = ref(false)
 
     const searchQuery = ''
-    const perPage = 10
-    const perPageOptions = [10, 25, 50, 100]
-   
+    const perPage = 2
+    const perPageOptions = [1, 2, 10, 30]
+    const currentPage = 1
     const exportOptions = [
       {
         title:'印刷',
@@ -150,27 +228,61 @@ export default defineComponent({
 
     //user list table columns
     const tableColumns = [
-      { key: '社員番号', sortable: true },
-      { key: 'メール', sortable: true },
-      { key: '社員名', sortable: true },
-      { key: '部署', sortable: true },
-      { key: '役職', sortable: true },    
-      { key: 'アクション' },
+      {
+        key: 'id',
+        label: 'No',
+        sortable: true
+      },
+      {
+        key: 'avatar_url',
+        label: 'アバター'
+      },
+      { 
+        key: 'employee_id', 
+        label: '従業員ID', 
+        sortable: true 
+      },
+      { 
+        key: 'login_id', 
+        label: 'ログインID', 
+        sortable: true 
+      },
+      { 
+        key: 'employee_name', 
+        label: '従業員名', 
+        sortable: true 
+      },
+      { 
+        key: 'department_id', 
+        label: 'デパートメント', 
+        sortable: true 
+      },
+      { 
+        key: 'role_id', 
+        label: '役割', 
+        sortable: true 
+      },
+      { 
+        key: 'action',
+        label: 'アクション' 
+      },
     ]
     //sortBy
     const sortBy = ref('id')
-    const isSortDirDesc = ref(true)
+    const isSortDirDesc = ref(false)
     return {
       isAddNewUserSidebarActive,
       //filter
       searchQuery,
       perPage,
       perPageOptions,
+      currentPage,
       exportOptions,
       //table
       tableColumns,
       sortBy,
-      isSortDirDesc
+      isSortDirDesc,
+      appConfig
     }
   },
   data() {
@@ -179,6 +291,29 @@ export default defineComponent({
         title:'印刷',
         icon:'PrinterIcon'
       }]
+    }
+  },
+  mounted() {
+    this.$store.dispatch('auth/retrieveUserList')
+  },
+  methods: {
+    deleteUser: function (userId) {
+      this.$swal({
+        title: '本当にユーザーを削除しますか？',
+        icon: 'question',
+        showCancelButton: true,
+        confirmButtonText: 'はい、そうです。',
+        cancelButtonText: 'いいえ。',
+        customClass: {
+          confirmButton: 'btn btn-primary',
+          cancelButton: 'btn btn-outline-danger ml-1',
+        },
+        buttonsStyling: false,
+      }).then(result => {
+        if (result.value) {
+          this.$store.dispatch('auth/deleteUser', userId)
+        }
+      })
     }
   }
 })

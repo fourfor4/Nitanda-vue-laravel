@@ -7,10 +7,10 @@
     <template #button-content>
       <div class="d-sm-flex d-none user-nav ml-2">
         <p class="user-name font-weight-bolder mb-0">
-          
+          {{current_user ? current_user.employee_name : ''}}
         </p>
         <span class="user-status">
-          {{current_user ? current_user.employee_name : ''}}
+          {{current_user && common_states.roles.filter(item => item.id == current_user.role_id).length > 0 ?  common_states.roles.filter(item => item.id == current_user.role_id)[0].role_name : ''}}
         </span>
       </div>
 
@@ -94,7 +94,8 @@ export default {
   },
   computed: {
     ...mapGetters({
-      current_user: 'auth/current_user'
+      current_user: 'auth/current_user',
+      common_states: 'common/common_states'
     })
   },
   methods: {

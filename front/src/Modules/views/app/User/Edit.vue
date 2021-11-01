@@ -4,15 +4,24 @@
       <b-col cols="12">
         <b-card no-body>
           <b-card-header class="border-bottom">
-            <b-card-title>
-              新規ユーザ登録
-            </b-card-title>
+            <div class="w-100 d-flex align-items-center justify-content-between">
+              <b-card-title>
+                新規ユーザ登録
+              </b-card-title>
+              <b-button
+                variant="primary"
+                to="/user/list"
+              >
+                ユーザーリストへ
+              </b-button>
+            </div>
           </b-card-header >
           <b-card-body class="mt-2">
             <b-row class="mb-2">
               <b-col sm="6" md="3">
-                <b-img v-if="!newUser.preview" :src="require('@/assets/images/avatars/default.png')" rounded class="w-100" />
-                <b-img v-if="newUser.preview" :src="newUser.preview" rounded class="w-100" />
+                <b-img v-if="editUser.avatar_url" :src="appConfig.serverUrl + editUser.avatar_url" rounded class="w-100" />
+                <b-img v-if="!editUser.avatar_url && !editUser.preview" :src="require('@/assets/images/avatars/default.png')" rounded class="w-100" />
+                <b-img v-if="editUser.preview" :src="editUser.preview" rounded class="w-100" />
               </b-col>
               <b-col sm="6" md="3" class="d-flex align-items-end mt-75 ms-1">
                 <div>
@@ -40,7 +49,7 @@
                     <b-form-input
                       id="employee_id"
                       placeholder="社員ID"
-                      v-model="newUser.employee_id"
+                      v-model="editUser.employee_id"
                     />
                   </b-form-group>
                 </b-col>
@@ -52,7 +61,7 @@
                     <b-form-input
                       id="employee_name"
                       placeholder="ユーザ名"
-                      v-model="newUser.employee_name"
+                      v-model="editUser.employee_name"
                     />
                   </b-form-group>
                 </b-col>
@@ -64,7 +73,7 @@
                     <b-form-input
                       id="login_id"
                       placeholder="ログインID"
-                      v-model="newUser.login_id"
+                      v-model="editUser.login_id"
                     />
                   </b-form-group>
                 </b-col>
@@ -72,15 +81,15 @@
                 </b-col>
                 <b-col md="6">
                   <b-form-group
-                    label="パスワード"
-                    label-for="password"
+                    label="新しいパスワード"
+                    label-for="newPassword"
                   >
                     <b-input-group class="input-group-merge">
                       <b-form-input
-                        id="password"
+                        id="newPassword"
                         :type="passwordFieldType"
-                        placeholder="パスワード"
-                        v-model="newUser.password"
+                        placeholder="新しいパスワード"
+                        v-model="editUser.newPassword"
                       />
                       <b-input-group-append is-text>
                         <feather-icon
@@ -102,7 +111,7 @@
                         id="confirmPassword"
                         :type="passwordFieldType"
                         placeholder="パスワードを認証する"
-                        v-model="newUser.confirmPassword"
+                        v-model="editUser.confirmPassword"
                       />
                       <b-input-group-append is-text>
                         <feather-icon
@@ -124,7 +133,7 @@
                       placeholder="入社日"
                       :date-format-options="{ year: 'numeric', month: 'numeric', day: 'numeric' }"
                       locale="ja"
-                      v-model="newUser.hire_date"
+                      v-model="editUser.hire_date"
                     />
                   </b-form-group>
                 </b-col>
@@ -138,7 +147,7 @@
                       placeholder="退社日"
                       :date-format-options="{ year: 'numeric', month: 'numeric', day: 'numeric' }"
                       locale="ja"
-                      v-model="newUser.leave_date"
+                      v-model="editUser.leave_date"
                     />
                   </b-form-group>
                 </b-col>
@@ -150,7 +159,7 @@
                     <b-form-select
                       id="department"
                       placeholder="所属部署"
-                      v-model="newUser.department_id"
+                      v-model="editUser.department_id"
                     >
                       <option value="0"></option>
                       <option
@@ -170,7 +179,7 @@
                   >
                     <b-form-select
                       id="role_id"
-                      v-model="newUser.role_id"
+                      v-model="editUser.role_id"
                       placeholder="所属部署"
                     >
                       <option
@@ -191,7 +200,7 @@
                     <b-form-input
                       id="grade"
                       placeholder="等級"
-                      v-model="newUser.grade"
+                      v-model="editUser.grade"
                     />
                   </b-form-group>
                 </b-col>
@@ -203,7 +212,7 @@
                     <b-form-input
                       id="affiliation"
                       placeholder="所属サークル"
-                      v-model="newUser.affiliation"
+                      v-model="editUser.affiliation"
                     />
                   </b-form-group>
                 </b-col>
@@ -216,7 +225,7 @@
                       id="note"
                       placeholder="備考"
                       rows="10"
-                      v-model="newUser.note"
+                      v-model="editUser.note"
                     />
                   </b-form-group>
                 </b-col>
@@ -229,7 +238,7 @@
                       id="mygoal"
                       placeholder="自分の目標"
                       rows="10"
-                      v-model="newUser.mygoal"
+                      v-model="editUser.mygoal"
                     />
                   </b-form-group>
                 </b-col>
@@ -239,9 +248,9 @@
                     type="submit"
                     variant="primary"
                     class="mr-1"
-                    @click="register"
+                    @click="update"
                   >
-                    登録
+                    アップデート
                   </b-button>
                   <b-button
                     v-ripple.400="'rgba(186, 191, 199, 0.15)'"
@@ -270,21 +279,21 @@ import {
   BCardTitle, 
   BButton, 
   BFormInput, 
+  BInputGroup,
+  BInputGroupAppend,
   BFormGroup, 
   BFormSelect, 
   BForm, 
-  BInputGroup,
-  BInputGroupAppend,
   BFormTextarea,
   BImg,
   BFormDatepicker,
-  BFormInvalidFeedback
+  BAvatar
 } from 'bootstrap-vue'
-import vSelect from 'vue-select'
+
 import Ripple from 'vue-ripple-directive'
 import { mapGetters } from 'vuex'
-import { ValidationProvider, ValidationObserver } from 'vee-validate'
 import ToastificationContentVue from '@/@core/components/toastification/ToastificationContent.vue'
+import appConfig from '@/appConfig'
 import { togglePasswordVisibility } from '@core/mixins/ui/forms'
 
 export default {
@@ -298,20 +307,14 @@ export default {
     BButton,
     BFormInput,
     BFormGroup,
-    BFormSelect,
-    BFormTextarea,
     BInputGroup,
     BInputGroupAppend,
+    BFormSelect,
+    BFormTextarea,
     BForm,
     BImg,
     BFormDatepicker,
-    vSelect,
-    BFormInvalidFeedback,
-
-    //Form Validation
-    ValidationObserver,
-    ValidationProvider
-
+    BAvatar
   },
   mixins: [togglePasswordVisibility],
   directives: {
@@ -320,11 +323,16 @@ export default {
   computed: {
     ...mapGetters({
       common_states: 'common/common_states',
-      newUser: 'auth/newUser'
+      editUser: 'auth/editUser',
     }),
     passwordToggleIcon() {
       return this.passwordFieldType === 'password' ? 'EyeIcon' : 'EyeOffIcon'
     },
+  },
+  setup() {
+    return {
+      appConfig
+    }
   },
   methods: {
     validateUserRegister(user) {
@@ -340,7 +348,7 @@ export default {
         validateMsg = 'パスワードフィールドに入力する必要があります。'
       } else if (user.role_id == null) {
         validateMsg = 'ロールIDフィールドに入力する必要があります。'
-      } else if (user.password != user.confirmPassword) {
+      } else if (user.newPassword != '' && user.newPassword != user.confirmPassword) {
         validateMsg = 'パスワードを確認する必要があります。'
       } else {
         returnVal = true
@@ -350,10 +358,10 @@ export default {
         validate: returnVal
       }
     },
-    register: function() {
-      if (this.validateUserRegister(this.newUser).validate == true) {
+    update: function() {
+      if (this.validateUserRegister(this.editUser).validate == true) {
         this.$swal({
-          title: '本当にユーザーを作成しますか？',
+          title: '本当にユーザーを更新しますか？',
           icon: 'question',
           showCancelButton: true,
           confirmButtonText: 'はい、そうです。',
@@ -365,7 +373,7 @@ export default {
           buttonsStyling: false,
         }).then(result => {
           if (result.value) {
-            this.$store.dispatch('auth/registerUser')
+            this.$store.dispatch('auth/updateUser')
           }
         })
       } else {
@@ -373,7 +381,7 @@ export default {
           component: ToastificationContentVue,
           position: 'top-right',
           props: {
-            title: this.validateUserRegister(this.newUser).msg,
+            title: this.validateUserRegister(this.editUser).msg,
             icon: 'CoffeeIcon',
             variant: 'danger',
           },
@@ -385,21 +393,23 @@ export default {
       if (input.files) {
         var reader = new FileReader();
         reader.onload = (e) => {
-          this.newUser.preview = e.target.result;
+          this.editUser.preview = e.target.result;
         }
-        this.newUser.avatar=input.files[0];
+        this.editUser.avatar_url = ''
+        this.editUser.avatar=input.files[0];
         reader.readAsDataURL(input.files[0]);
       }
     },
     resetImage: function() {
-      this.newUser.preview = null
-      this.newUser.avatar = null
+      console.log(this.editUser)
+      this.editUser.preview = null
+      this.editUser.avatar = null
+      this.editUser.avatar_url = ''
     }
   },
-  setup() {
-  },
   mounted() {
-    this.$store.commit('auth/SET_NEW_USER')
+    const userId = this.$route.params.userId
+    this.$store.dispatch('auth/retrieveUserById', userId)
   }
 }
 </script>
