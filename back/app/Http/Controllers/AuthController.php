@@ -90,6 +90,7 @@ class AuthController extends Controller
         $user->affiliation = $request->affiliation;
         $user->mygoal = $request->mygoal;
         $user->password = Hash::make($request->password);
+        $user->creator_id = auth()->user()->id;
         $user->save();
 
         return response()->json([
@@ -98,6 +99,88 @@ class AuthController extends Controller
                 'desc' => 'User successfully registered',
                 'user' => $user
             ]
+        ], 200);
+    }
+
+    public function updateUser(Request $request) {
+
+        if (User::where('id', '!=', $request->id)->where('employee_id', $request->employee_id)->count() > 0 ) {
+            return response()->json([
+                'error' => [
+                    'employee_id' => 'is not equal'
+                ],
+                'success' => false
+            ], 200);
+        }
+
+        if (User::where('id', '!=', $request->id)->where('login_id', $request->login_id)->count() > 0 ) {
+            return response()->json([
+                'error' => [
+                    'login_id' => 'is not equal'
+                ],
+                'success' => false
+            ], 200);
+        }
+
+        $upload_path = public_path('upload/avatar');
+        
+        $file = $request->file('avatar');
+
+        $generated_new_name = '';
+
+        $user = User::where('id', $request->id)->first();
+
+        if ($file) {
+            if ($user->avatar_url) {
+                unlink(public_path().'/'.$user->avatar_url);
+            }
+            $generated_new_name = time() . '.' . 'jpg';
+            $request->file('avatar')->move($upload_path, $generated_new_name);
+            $user->avatar_url = "upload/avatar/".$generated_new_name;
+        } else {
+            if ($user->avatar_url && $request->avatar_url == '') {
+                try {
+                    unlink(public_path().'/'.$user->avatar_url);
+                } catch (\Throwable $th) {
+                }
+                $user->avatar_url = '';
+            } else {
+                $user->avatar_url = $request->avatar_url;
+            }
+        }
+
+        $user->employee_id = $request->employee_id;
+        $user->employee_name = $request->employee_name;
+        $user->login_id = $request->login_id;
+        $user->hire_date = $request->hire_date;
+        $user->leave_date = $request->leave_date;
+        $user->role_id = $request->role_id;
+        $user->department_id = $request->department_id;
+        $user->note = $request->note;
+        $user->affiliation = $request->affiliation;
+        $user->mygoal = $request->mygoal;
+        if ($request->newPassword != '') {
+            $user->password = Hash::make($request->newPassword);
+        }
+        $user->updater_id = auth()->user()->id;
+        $user->save();
+
+        return response()->json([
+            'success' => true,
+            'msg' => [
+                'desc' => 'User successfully registered',
+                'user' => $user
+            ]
+        ], 200);
+    }
+
+    public function deleteUser(Request $request) {
+        $user = User::where('id', $request->userid)->first();
+        $user->del_flag = '1';
+        $user->save();
+        return response()->json([
+            'success' => true,
+            'user' => $user
         ], 200);
     }
 
@@ -135,6 +218,26 @@ class AuthController extends Controller
                 // 'token' => JWTAuth::refresh(JWTAuth::getToken())
             ],
             'success' => true
+        ], 200);
+    }
+
+    public function retrieveUserList() {
+        $userList = User::where('del_flag', '0')->get();
+        return response()->json([
+            'success' => true,
+            'msg' => [
+                'userList' => $userList
+            ]
+        ], 200);
+    }
+
+    public function retrieveUserById(Request $request) {
+        $user = User::where('id', $request->userid)->where('del_flag', '0')->first();
+        return response()->json([
+            'success' => true,
+            'msg' => [
+                'user' => $user
+            ]
         ], 200);
     }
 

@@ -19,21 +19,35 @@ class DatabaseSeeder extends Seeder
     {
         //DepartmentMaster
         DB::table('department_masters')->insert([
-            'department_name' => 'overall',
+            'department_name' => '管理部',
             'category' => '0',
             'del_flag' => '0',
             'created_at' => Carbon::now(),
             'updated_at' => Carbon::now()
         ]);
         DB::table('department_masters')->insert([
-            'department_name' => 'developement',
+            'department_name' => '企画開発',
             'category' => '0',
             'del_flag' => '0',
             'created_at' => Carbon::now(),
             'updated_at' => Carbon::now()
         ]);
         DB::table('department_masters')->insert([
-            'department_name' => 'analysis',
+            'department_name' => '営業部',
+            'category' => '0',
+            'del_flag' => '0',
+            'created_at' => Carbon::now(),
+            'updated_at' => Carbon::now()
+        ]);
+        DB::table('department_masters')->insert([
+            'department_name' => '医療システム部',
+            'category' => '0',
+            'del_flag' => '0',
+            'created_at' => Carbon::now(),
+            'updated_at' => Carbon::now()
+        ]);
+        DB::table('department_masters')->insert([
+            'department_name' => 'システム管理',
             'category' => '0',
             'del_flag' => '0',
             'created_at' => Carbon::now(),
@@ -42,16 +56,12 @@ class DatabaseSeeder extends Seeder
 
         //RoleMaster
         DB::table('role_masters')->insert([
-            'role_name' => 'admin',
+            'role_name' => '管理者',
             'role_level' => 0,
         ]);
         DB::table('role_masters')->insert([
-            'role_name' => 'user',
+            'role_name' => 'ユーザー',
             'role_level' => 1,
-        ]);
-        DB::table('role_masters')->insert([
-            'role_name' => 'guest',
-            'role_level' => 2,
         ]);
         
         //TagMaster

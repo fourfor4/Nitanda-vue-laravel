@@ -32,10 +32,15 @@ Route::middleware(['cors'])->group(function(){
         Route::group([
             'prefix' => 'auth'
         ], function($router) {
+            Route::post('/auth/register', 'App\Http\Controllers\AuthController@register');
             Route::post('/logout', 'App\Http\Controllers\AuthController@logout');
             Route::post('/refresh', 'App\Http\Controllers\AuthController@refresh');
             Route::get('/retrieve_user', 'App\Http\Controllers\AuthController@retrieveUser');
             Route::post('/retrieve_auth', 'App\Http\Controllers\AuthController@retrieveAuth');
+            Route::get('/retrieve_user_list', 'App\Http\Controllers\AuthController@retrieveUserList');
+            Route::post('/retrieve_user_byid', 'App\Http\Controllers\AuthController@retrieveUserById');
+            Route::post('/update_user', 'App\Http\Controllers\AuthController@updateUser');
+            Route::post('/delete_user', 'App\Http\Controllers\AuthController@deleteUser');
         });
 
         Route::group([
